@@ -11,8 +11,7 @@ const calendarFieldset = document.querySelector('#calendar-fieldset');
 const paymentFieldset = document.querySelector('#payment-fieldset');
 const contactFieldset = document.querySelector('#contact-fieldset');
 const questions = document.querySelector('#questions');
-const audioPersonName = document.querySelector('#audio-person-name');
-const audioPersonBirthdate = document.querySelector('#audio-person-birthdate');
+const audioPeople = document.querySelector('#audio-people');
 const flashQuestions = document.querySelector('#flash-questions');
 const flashPeople = document.querySelector('#flash-people');
 const birthdate = document.querySelector('#birthdate');
@@ -53,8 +52,7 @@ function resetConditionalFields() {
   [modalityFieldset, birthdateFieldset, natalDataFieldset, questionsFieldset, flashQuestionsFieldset, calendarFieldset, paymentFieldset, contactFieldset].forEach(el => el.classList.add('hidden'));
   modalityInputs.forEach(input => { input.checked = false; });
   questions.required = false;
-  audioPersonName.required = false;
-  audioPersonBirthdate.required = false;
+  audioPeople.required = false;
   flashQuestions.required = false;
   flashPeople.required = false;
   birthdate.required = false;
@@ -113,15 +111,13 @@ function onModalityChange() {
   paymentFieldset.classList.remove('hidden');
   contactFieldset.classList.remove('hidden');
   questions.required = false;
-  audioPersonName.required = false;
-  audioPersonBirthdate.required = false;
+  audioPeople.required = false;
   phone.required = false;
   clearAppointment();
   if (form.elements.modality.value === 'audio') {
     questionsFieldset.classList.remove('hidden');
     questions.required = true;
-    audioPersonName.required = true;
-    audioPersonBirthdate.required = true;
+    audioPeople.required = true;
     contactStep.textContent = '4';
     phoneLabel.textContent = 'Numero di telefono (facoltativo)';
     phoneHelp.textContent = 'Puoi lasciarlo se preferisci essere ricontattato anche telefonicamente.';
@@ -382,5 +378,4 @@ document.querySelector('#success-modal').addEventListener('click', event => {
 document.addEventListener('keydown', event => { if (event.key === 'Escape') closeModal(); });
 document.querySelector('#year').textContent = new Date().getFullYear();
 birthdate.max = isoDate(today);
-audioPersonBirthdate.max = isoDate(today);
 natalBirthdate.max = isoDate(today);

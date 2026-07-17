@@ -224,17 +224,10 @@
 
         <fieldset class="conditional hidden" id="questions-fieldset">
           <legend><span>2</span> I dati e le domande per l’audio</legend>
-          <p class="fieldset-intro"><strong>Tutti i campi sono obbligatori.</strong> Indica nome e data di nascita della persona per cui richiedi la lettura.</p>
-          <div class="form-row">
-            <div>
-              <label class="field-label" for="audio-person-name">Nome della persona</label>
-              <input class="text-input" type="text" id="audio-person-name" name="audioPersonName" autocomplete="off" placeholder="Solo il nome">
-            </div>
-            <div>
-              <label class="field-label" for="audio-person-birthdate">Data di nascita</label>
-              <input class="text-input" type="date" id="audio-person-birthdate" name="audioPersonBirthdate">
-            </div>
-          </div>
+          <p class="fieldset-intro"><strong>Tutti i campi sono obbligatori.</strong> Per rendere la lettura più accurata, indica nome e data di nascita di chi richiede il consulto e di tutte le altre persone coinvolte nelle domande.</p>
+          <label class="field-label" for="audio-people">Nomi e date di nascita di tutte le persone coinvolte</label>
+          <textarea class="text-input" id="audio-people" name="audioPeople" rows="3" maxlength="700" placeholder="Esempio:&#10;Io, Giulia — 14/04/1983&#10;Marco — 22/09/1980"></textarea>
+          <p class="field-help">Inserisci una persona per riga, compresa la persona che richiede il consulto. È sufficiente il nome, senza cognome.</p>
           <label class="field-label" for="questions">Scrivi qui le tue domande</label>
           <textarea class="text-input" id="questions" name="questions" rows="5" maxlength="1200" placeholder="Raccontami brevemente cosa stai vivendo e quali risposte stai cercando…"></textarea>
           <div class="turnaround"><span>✦</span><p>Riceverai il tuo audio personalizzato <strong>entro le prossime 72 ore.</strong></p></div>
@@ -242,10 +235,10 @@
 
         <fieldset class="conditional hidden" id="flash-questions-fieldset">
           <legend><span>1</span> Scrivi le tue 3 domande</legend>
-          <p class="fieldset-intro"><strong>Tutti i campi sono obbligatori.</strong> Per ogni persona coinvolta indica soltanto il nome e la data di nascita.</p>
-          <label class="field-label" for="flash-people">Nome e data di nascita delle persone coinvolte</label>
-          <textarea class="text-input" id="flash-people" name="flashPeople" rows="3" maxlength="500" placeholder="Esempio:&#10;Giulia — 14/04/1983&#10;Marco — 22/09/1980"></textarea>
-          <p class="field-help">Se le persone sono più di una, inseriscine una per riga. Non è necessario indicare il cognome.</p>
+          <p class="fieldset-intro"><strong>Tutti i campi sono obbligatori.</strong> Per rendere le risposte più accurate, indica nome e data di nascita di chi richiede il consulto e di tutte le altre persone coinvolte nelle domande.</p>
+          <label class="field-label" for="flash-people">Nomi e date di nascita di tutte le persone coinvolte</label>
+          <textarea class="text-input" id="flash-people" name="flashPeople" rows="3" maxlength="700" placeholder="Esempio:&#10;Io, Giulia — 14/04/1983&#10;Marco — 22/09/1980"></textarea>
+          <p class="field-help">Inserisci una persona per riga, compresa la persona che richiede il consulto. È sufficiente il nome, senza cognome.</p>
           <label class="field-label" for="flash-questions">Le domande per il tuo consulto</label>
           <textarea class="text-input" id="flash-questions" name="flashQuestions" rows="6" maxlength="1200" placeholder="1. Scrivi la prima domanda…&#10;2. Scrivi la seconda domanda…&#10;3. Scrivi la terza domanda…"></textarea>
           <div class="service-warning"><span>!</span><p><strong>Importante:</strong> non si effettuano consulti relativi alla salute o alle gravidanze.</p></div>
@@ -351,6 +344,6 @@
     </div>
   </div>
 
-  <script src="script.js?v=9"></script>
+  <script src="script.js?v=10"></script>
 </body>
 </html>
