@@ -284,14 +284,9 @@ form.addEventListener('submit', async event => {
 
   submitButton.disabled = true;
   submitButton.innerHTML = 'Invio in corso…';
+  let bookingResult;
   try {
-    await fetch(BOOKING_ENDPOINT, {
-      method: 'POST',
-      mode: 'no-cors',
-      credentials: 'omit',
-      headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
-      body: JSON.stringify(payload)
-    });
+    bookingResult = await submitBooking(payload);
   } catch (error) {
     submitButton.disabled = false;
     submitButton.innerHTML = originalButtonLabel;
@@ -300,10 +295,66 @@ form.addEventListener('submit', async event => {
 
   submitButton.disabled = false;
   submitButton.innerHTML = originalButtonLabel;
+  if (!bookingResult || !bookingResult.ok) {
+    if (needsAppointment) {
+      selectedTime = '';
+      document.querySelector('#appointment-time').value = '';
+      document.querySelectorAll('#slots .slot').forEach(item => item.classList.remove('selected'));
+    }
+    return showError(bookingResult?.error || 'Non è stato possibile completare la prenotazione. Riprova.');
+  }
   document.querySelector('#success-summary').textContent = `${name}, ${details}${paymentDetails}`;
   document.querySelector('#success-modal').hidden = false;
   document.body.style.overflow = 'hidden';
 });
+
+function submitBooking(payload) {
+  return new Promise((resolve, reject) => {
+    const frameName = `inside-you-booking-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+    const iframe = document.createElement('iframe');
+    const relayForm = document.createElement('form');
+    let timeout;
+
+    iframe.name = frameName;
+    iframe.hidden = true;
+    iframe.setAttribute('aria-hidden', 'true');
+    relayForm.method = 'POST';
+    relayForm.action = BOOKING_ENDPOINT;
+    relayForm.target = frameName;
+    relayForm.hidden = true;
+
+    const addField = (name, value) => {
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = name;
+      input.value = value;
+      relayForm.appendChild(input);
+    };
+    addField('responseMode', 'iframe');
+    addField('payload', JSON.stringify(payload));
+
+    const cleanup = () => {
+      clearTimeout(timeout);
+      window.removeEventListener('message', onMessage);
+      relayForm.remove();
+      iframe.remove();
+    };
+    const onMessage = event => {
+      const trustedOrigin = event.origin === 'https://script.google.com' || event.origin.endsWith('.googleusercontent.com');
+      if (!trustedOrigin || event.data?.source !== 'inside-you-booking') return;
+      cleanup();
+      resolve(event.data);
+    };
+
+    window.addEventListener('message', onMessage);
+    document.body.append(iframe, relayForm);
+    timeout = setTimeout(() => {
+      cleanup();
+      reject(new Error('Timeout della prenotazione'));
+    }, 30000);
+    relayForm.submit();
+  });
+}
 
 function showError(message) {
   errorBox.textContent = message;
