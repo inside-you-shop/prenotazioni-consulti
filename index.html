@@ -223,7 +223,18 @@
         </fieldset>
 
         <fieldset class="conditional hidden" id="questions-fieldset">
-          <legend><span>2</span> Le domande che vuoi esplorare</legend>
+          <legend><span>2</span> I dati e le domande per l’audio</legend>
+          <p class="fieldset-intro"><strong>Tutti i campi sono obbligatori.</strong> Indica nome e data di nascita della persona per cui richiedi la lettura.</p>
+          <div class="form-row">
+            <div>
+              <label class="field-label" for="audio-person-name">Nome della persona</label>
+              <input class="text-input" type="text" id="audio-person-name" name="audioPersonName" autocomplete="off" placeholder="Solo il nome">
+            </div>
+            <div>
+              <label class="field-label" for="audio-person-birthdate">Data di nascita</label>
+              <input class="text-input" type="date" id="audio-person-birthdate" name="audioPersonBirthdate">
+            </div>
+          </div>
           <label class="field-label" for="questions">Scrivi qui le tue domande</label>
           <textarea class="text-input" id="questions" name="questions" rows="5" maxlength="1200" placeholder="Raccontami brevemente cosa stai vivendo e quali risposte stai cercando…"></textarea>
           <div class="turnaround"><span>✦</span><p>Riceverai il tuo audio personalizzato <strong>entro le prossime 72 ore.</strong></p></div>
@@ -340,6 +351,6 @@
     </div>
   </div>
 
-  <script src="script.js?v=8"></script>
+  <script src="script.js?v=9"></script>
 </body>
 </html>
